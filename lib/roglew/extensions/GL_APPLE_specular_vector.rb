@@ -1,0 +1,3 @@
+module GL_APPLE_specular_vector
+  LIGHT_MODEL_SPECULAR_VECTOR_APPLE = 0x85B0
+end

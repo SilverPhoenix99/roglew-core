@@ -1,0 +1,3 @@
+module GLX_ARB_vertex_buffer_object
+  CONTEXT_ALLOW_BUFFER_BYTE_ORDER_MISMATCH_ARB = 0x2095
+end

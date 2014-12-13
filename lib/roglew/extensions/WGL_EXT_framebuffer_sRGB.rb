@@ -1,0 +1,3 @@
+module WGL_EXT_framebuffer_sRGB
+  FRAMEBUFFER_SRGB_CAPABLE_EXT = 0x20A9
+end

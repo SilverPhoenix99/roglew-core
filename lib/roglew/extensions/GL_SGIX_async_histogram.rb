@@ -1,0 +1,4 @@
+module GL_SGIX_async_histogram
+  ASYNC_HISTOGRAM_SGIX     = 0x832C
+  MAX_ASYNC_HISTOGRAM_SGIX = 0x832D
+end

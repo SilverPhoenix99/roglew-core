@@ -1,0 +1,5 @@
+module WGL_ATI_pixel_format_float
+  TYPE_RGBA_FLOAT_ATI = 0x21A0
+  RGBA_FLOAT_MODE_ATI             = 0x8820
+  COLOR_CLEAR_UNCLAMPED_VALUE_ATI = 0x8835
+end

@@ -1,0 +1,5 @@
+module GL_SGIX_texture_coordinate_clamp
+  TEXTURE_MAX_CLAMP_R_SGIX = 0x836B
+  TEXTURE_MAX_CLAMP_S_SGIX = 0x8369
+  TEXTURE_MAX_CLAMP_T_SGIX = 0x836A
+end

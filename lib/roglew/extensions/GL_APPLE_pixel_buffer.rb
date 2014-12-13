@@ -1,0 +1,3 @@
+module GL_APPLE_pixel_buffer
+  MIN_PBUFFER_VIEWPORT_DIMS_APPLE = 0x8A10
+end
