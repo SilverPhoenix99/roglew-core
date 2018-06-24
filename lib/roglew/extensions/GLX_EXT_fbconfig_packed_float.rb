@@ -1,4 +1,0 @@
-module GLX_EXT_fbconfig_packed_float
-  RGBA_UNSIGNED_FLOAT_BIT_EXT  = 0x00000008
-  RGBA_UNSIGNED_FLOAT_TYPE_EXT = 0x20B1
-end

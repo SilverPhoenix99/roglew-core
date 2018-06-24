@@ -1,3 +1,0 @@
-module GLX_ARB_robustness_share_group_isolation
-  CONTEXT_RESET_ISOLATION_BIT_ARB = 0x00000008
-end

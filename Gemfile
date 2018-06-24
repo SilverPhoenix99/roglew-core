@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in roglew-core.gemspec
 gemspec
+
+group :development, :test do
+  gem 'opengl-definitions', require: false, path: '../opengl-definitions'
+end

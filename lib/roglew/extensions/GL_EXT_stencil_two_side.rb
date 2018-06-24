@@ -1,9 +1,0 @@
-module GL_EXT_stencil_two_side
-  ACTIVE_STENCIL_FACE_EXT   = 0x8911
-  STENCIL_TEST_TWO_SIDE_EXT = 0x8910
-
-  FUNCTIONS = {
-    glActiveStencilFaceEXT: [ :void, :uint ].freeze
-  }.freeze
-end
-

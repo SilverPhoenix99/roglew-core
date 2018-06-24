@@ -1,4 +1,0 @@
-module GL_EXT_Cg_shader
-  CG_FRAGMENT_SHADER_EXT = 0x890F
-  CG_VERTEX_SHADER_EXT   = 0x890E
-end

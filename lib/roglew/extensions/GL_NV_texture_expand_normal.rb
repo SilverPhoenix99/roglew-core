@@ -1,3 +1,0 @@
-module GL_NV_texture_expand_normal
-  TEXTURE_UNSIGNED_REMAP_MODE_NV = 0x888F
-end

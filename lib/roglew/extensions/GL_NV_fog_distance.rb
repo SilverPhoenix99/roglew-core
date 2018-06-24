@@ -1,5 +1,0 @@
-module GL_NV_fog_distance
-  EYE_PLANE_ABSOLUTE_NV = 0x855C
-  EYE_RADIAL_NV         = 0x855B
-  FOG_DISTANCE_MODE_NV  = 0x855A
-end

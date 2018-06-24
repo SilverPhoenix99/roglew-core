@@ -1,3 +1,0 @@
-module GL_ATI_texture_compression_3dc
-  COMPRESSED_LUMINANCE_ALPHA_3DC_ATI = 0x8837
-end

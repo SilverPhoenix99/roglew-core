@@ -1,3 +1,0 @@
-module GLX_ARB_framebuffer_sRGB
-  FRAMEBUFFER_SRGB_CAPABLE_ARB = 0x20B2
-end

@@ -1,3 +1,0 @@
-module GLX_EXT_framebuffer_sRGB
-  FRAMEBUFFER_SRGB_CAPABLE_EXT = 0x20B2
-end

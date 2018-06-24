@@ -1,3 +1,0 @@
-module GLX_EXT_create_context_es2_profile
-  CONTEXT_ES2_PROFILE_BIT_EXT = 0x00000004
-end

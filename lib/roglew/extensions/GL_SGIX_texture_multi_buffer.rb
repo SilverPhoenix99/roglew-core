@@ -1,3 +1,0 @@
-module GL_SGIX_texture_multi_buffer
-  TEXTURE_MULTI_BUFFER_HINT_SGIX = 0x812E
-end

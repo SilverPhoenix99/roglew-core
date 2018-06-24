@@ -1,3 +1,0 @@
-module WGL_EXT_pixel_format_packed_float
-  TYPE_RGBA_UNSIGNED_FLOAT_EXT = 0x20A8
-end
