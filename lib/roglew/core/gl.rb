@@ -24,7 +24,7 @@ module Roglew
         gl_mod.include mod::Constants
       end
 
-      mod::Functions.extend MethodMetadata if mod.const_defined?(:Functions)
+      mod.extend MethodMetadata
 
       mod
     end

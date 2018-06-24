@@ -6,22 +6,24 @@ module Roglew
     end
 
     def attach_extension(extension)
-      mod = Module.new
-      mod.extend GL::NativeExtension
-      get_extension_functions(extension).each do |method, function|
-        mod.attach_function method, function
+      Module.new.tap do |mod|
+        mod.extend GL::NativeExtension
+
+        get_extension_functions(extension).each do |method, function|
+          mod.attach_function method, function
+        end
+
+        singleton_class.include mod
       end
-      singleton_class.include mod
     end
 
     private
 
       def get_extension_functions(mod)
-        return [] unless mod.const_defined?(:Functions)
+        definitions = mod.function_definitions
+        return definitions if definitions.empty?
 
-        definitions = mod::Functions.function_definitions
-
-        func_ptrs = if mod.name =~ /\bGL_VERSION_1_[01]\b/
+        func_ptrs = if mod.name =~ /\b(GLX?|WGL)_VERSION_1_[01]\b/
           definitions.map { |method| get_func_ptr(method.name, method.arg_types) }
         else
           definitions.map { |method| get_proc_address(method.name) }
@@ -50,8 +52,10 @@ module Roglew
 
       # Initialize GL 1.0 core functions
       GL.fetch_extension :GL_VERSION_1_0
-      dummy_rh = self.allocate
-      dummy_rh.attach_extension GL_VERSION_1_0
-      include dummy_rh.singleton_class.ancestors[1]
+      include self.allocate.attach_extension(GL_VERSION_1_0)
+
+      # Initialize platform 1.0 core functions
+      mod = GL.fetch_extension(:"#{Platform.lastname}_VERSION_1_0")
+      include self.allocate.attach_extension(mod)
   end
 end
