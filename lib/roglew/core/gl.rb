@@ -36,11 +36,5 @@ module Roglew
     ::GL::Definitions::TYPEDEFS.each do |new_name, original_name|
       typedef original_name, new_name
     end
-
-    # Initialize OpenGL version 1.0 core functions into RenderHandleBase
-    fetch_extension :GL_VERSION_1_0
-    dummy_rh = RenderHandleBase.allocate
-    dummy_rh.attach_extension GL_VERSION_1_0
-    RenderHandleBase.include dummy_rh.singleton_class.ancestors[1]
   end
 end

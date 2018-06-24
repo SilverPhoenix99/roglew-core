@@ -47,5 +47,11 @@ module Roglew
         parameters = parameters.map { |arg| GL.find_type(arg) }
         FFI::Function.new(ret_type, parameters, func_ptr, convention: GL.ffi_convention)
       end
+
+      # Initialize GL 1.0 core functions
+      GL.fetch_extension :GL_VERSION_1_0
+      dummy_rh = self.allocate
+      dummy_rh.attach_extension GL_VERSION_1_0
+      include dummy_rh.singleton_class.ancestors[1]
   end
 end
