@@ -1,7 +1,7 @@
 module Roglew
   module WGL
-    NAME = 'windows'
-
+    OS = 'windows'
+    FUNCTION_PREFIX = 'wgl'
     LIBRARY_NAME = 'opengl32'.freeze
   end
 

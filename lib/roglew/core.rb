@@ -16,7 +16,7 @@ require 'opengl-definitions'
 ##################
 
 require_relative 'core/version'
-
+require_relative 'core/errors'
 require_relative 'core/gl/constants'
 
 case
@@ -25,10 +25,10 @@ case
   else raise 'Unknown platform'
 end
 
-require_relative 'core/gl/method_metadata'
+require_relative 'core/gl/extension'
 require_relative 'core/gl/native_extension'
 require_relative 'core/gl/typed_method'
 require_relative 'core/gl'
 
-require_relative 'core/render_handle_base'
-require_relative "core/platform/#{Roglew::Platform::NAME}/render_handle"
+require_relative 'core/render_context'
+require_relative "core/platform/#{Roglew::Platform::OS}/render_context"

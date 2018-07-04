@@ -14,6 +14,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.add_dependency 'facets', '~> 3'
   gem.add_dependency 'ffi', '~> 1.9'
-  gem.add_dependency 'opengl-definitions', '~> 2'
-  gem.add_development_dependency 'rspec', '~> 3'
+  gem.add_dependency 'opengl-definitions', '~> 3'
 end

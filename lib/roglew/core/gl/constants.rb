@@ -1,7 +1,5 @@
 module Roglew
   module GL
-    class ExtensionNotFoundError < StandardError; end
-
     module Definitions
       PATH = (Pathname(Gem.loaded_specs['opengl-definitions'].full_require_paths.first) / 'opengl-definitions').cleanpath
     end

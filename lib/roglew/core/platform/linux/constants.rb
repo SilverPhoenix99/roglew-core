@@ -1,13 +1,16 @@
 module Roglew
   module GLX
-    NAME = 'linux'
 
-    LIBRARY_NAME = begin
-      name = FFI.map_library_name('GL')
-      name = `ldconfig -p | grep -Po '#{name}\\S*' | head -1`.chomp
-      raise LoadError, 'OpenGL library not found' if name.empty?
-      name.freeze
+    def self.locate_lib(name)
+      mapped_name = FFI.map_library_name(name)
+      lib_name = `ldconfig -p`.each_line.drop(1).map { |l| l[/\S+/] }.find { |l| l.start_with?(mapped_name) }
+      raise LoadError, "#{name} library not found" unless lib_name
+      lib_name
     end
+
+    OS = 'linux'
+    FUNCTION_PREFIX = 'glX'
+    LIBRARY_NAME = Roglew.locate_lib('GL').freeze
   end
 
   Platform = GLX

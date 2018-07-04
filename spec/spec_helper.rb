@@ -1,1 +1,1 @@
-# require_relative '../lib/roglew/core'
+require_relative '../lib/roglew/core'

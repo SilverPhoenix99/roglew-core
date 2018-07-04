@@ -8,7 +8,7 @@ module Roglew
         bnd.eval("define_method :#{method.name}, ->(#{args}) { function.call(#{args}) }")
       end
 
-      def function_binding(function)
+      private def function_binding(function)
         binding.tap do |bnd|
           bnd.local_variable_set :function, function # explicitly use the function argument
         end
