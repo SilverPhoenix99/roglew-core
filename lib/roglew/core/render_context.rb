@@ -78,12 +78,12 @@ module Roglew
     end
 
     private def attach_extensions(profile)
-      attach_version_extensions 'GL', profile
-      attach_version_extensions Platform.lastname
+      attach_gl_version_extensions profile: profile
+      attach_platform_version_extensions
       attach_platform_extensions
     end
 
-    private def attach_version_extensions(prefix, profile = :core)
+    private def attach_gl_version_extensions(prefix: 'GL', max_version: @version, profile: :core)
       extension_names = GL::Definitions::PATH.glob("versions/#{prefix}_VERSION_*.rb").map do |path|
         path.basename('.rb').to_s
       end
@@ -91,14 +91,34 @@ module Roglew
       extension_names.reject! do |ext_name|
         ext_version = ext_name[/\d+_\d+$/].split('_').map(&:to_i)
         # version 1.0 is pre-loaded by default
-        ext_version == [1, 0] || (ext_version <=> @version) > 0
+        ext_version == [1, 0] || (ext_version <=> max_version) > 0
       end
 
       extension_names.each { |ext_name| attach_extension ext_name, profile: profile }
     end
 
     private def attach_platform_extensions
-      raise AbstractMethodAccessError, 'This method must be overriden'
+      extensions = get_extensions_list
+      extensions.each { |name| attach_extension name }
+    end
+
+    private def get_extensions_list
+      get_extensions_list_3_0 || get_extensions_list_1_0
+    end
+
+    private def get_extensions_list_3_0
+      return unless (@version <=> [3, 0]) >= 0
+
+      num_extensions = FFI::MemoryPointer.new(:int) do |p|
+        glGetIntegerv(GL::NUM_EXTENSIONS, p)
+        break p.read_int
+      end
+
+      num_extensions.times.map { |i| glGetStringi(GL::EXTENSIONS, i) }
+    end
+
+    private def get_extensions_list_1_0
+      glGetString(GL::EXTENSIONS).split(/\s+/)
     end
 
     allocate.tap do |dummy|

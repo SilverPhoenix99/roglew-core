@@ -35,9 +35,8 @@ module Roglew
       wglGetProcAddress(function_name)
     end
 
-    private def attach_platform_extensions
-      extensions = get_extensions_list
-      extensions.each { |name| attach_extension name }
+    private def attach_platform_version_extensions
+      # noop
     end
 
     private def get_extensions_list
@@ -56,21 +55,6 @@ module Roglew
       return if func_ptr.null?
       function = FFI::Function.new(:string, [], func_ptr, convention: GL.ffi_convention)
       function.().split(/\s+/)
-    end
-
-    private def get_extensions_list_3_0
-      return unless (@version <=> [3, 0]) >= 0
-
-      num_extensions = FFI::MemoryPointer.new(:int) do |p|
-        glGetIntegerv(GL::NUM_EXTENSIONS, p)
-        break p.read_int
-      end
-
-      num_extensions.times.map { |i| glGetStringi(GL::EXTENSIONS, i) }
-    end
-
-    private def get_extensions_list_1_0
-      glGetString(GL::EXTENSIONS).split(/\s+/)
     end
   end
 end

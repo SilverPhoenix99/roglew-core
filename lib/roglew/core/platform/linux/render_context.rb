@@ -55,5 +55,23 @@ module Roglew
         break glXChooseVisual(@display, @screen, attrs_ptr)
       end
     end
+
+    private def attach_platform_version_extensions
+
+      platform_version = FFI::ArrayType.new(:int, 2) do |p|
+        glXQueryVersion(@display, p[0], p[1])
+        break p.read_array_of_int(2)
+      end
+
+      attach_version_extensions prefix: Platform.lastname, version: platform_version
+    end
+
+    private def get_extensions_list
+      get_extensions_list_glx || get_extensions_list_3_0 || get_extensions_list_1_0
+    end
+
+    private def get_extensions_list_glx
+      glXGetClientString(@display, Platform::EXTENSIONS).split(/\s+/) if respond_to?(:glXGetClientString)
+    end
   end
 end
