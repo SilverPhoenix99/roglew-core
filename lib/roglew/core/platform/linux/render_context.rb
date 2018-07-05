@@ -3,10 +3,7 @@ module Roglew
 
     class << self
       private def finalizer(display, context)
-        proc do
-          allocate.glXDestroyContext display, context
-          # puts "GLX context deleted: #{context}"
-        end
+        proc { allocate.glXDestroyContext display, context }
       end
     end
 
@@ -42,11 +39,24 @@ module Roglew
         @context = new_context
       end
 
-      ObjectSpace.define_finalizer self, self.class.send(:finalize, @display, @context)
+      ObjectSpace.define_finalizer self, self.class.send(:finalizer, @display, @context)
     end
 
     def get_proc_address(function_name)
-      raise 'Not Implemented'
+      return glXGetProcAddress(function_name) if respond_to?(:glXGetProcAddress)
+
+      unless respond_to?(:glXGetProcAddressARB)
+        func_ptr = GL.get_func_ptr(:glXGetProcAddressARB, [:string])
+        function = FFI::Function.new(:pointer, [:string], func_ptr, convention: GL.ffi_convention)
+
+        self.class.include EmptyBinding
+
+        bnd = empty_binding
+        bnd.local_variable_set :function, function
+        bnd.eval "define_singleton_method :glXGetProcAddressARB, ->(procName) { function.call(procName) }"
+      end
+
+      glXGetProcAddressARB(function_name)
     end
 
     private def create_visual
@@ -58,12 +68,12 @@ module Roglew
 
     private def attach_platform_version_extensions
 
-      platform_version = FFI::ArrayType.new(:int, 2) do |p|
+      platform_version = FFI::MemoryPointer.new(:int, 2, false) do |p|
         glXQueryVersion(@display, p[0], p[1])
         break p.read_array_of_int(2)
       end
 
-      attach_version_extensions prefix: Platform.lastname, version: platform_version
+      attach_gl_version_extensions prefix: Platform.lastname, max_version: platform_version
     end
 
     private def get_extensions_list

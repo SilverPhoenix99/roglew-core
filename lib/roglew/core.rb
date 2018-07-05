@@ -16,6 +16,7 @@ require 'opengl-definitions'
 ##################
 
 require_relative 'core/version'
+require_relative 'core/empty_binding'
 require_relative 'core/errors'
 require_relative 'core/gl/constants'
 

@@ -3,10 +3,7 @@ module Roglew
 
     class << self
       private def finalizer(context)
-        proc do
-          allocate.wglDeleteContext context
-          # puts "WGL context deleted: #{context}"
-        end
+        proc { allocate.wglDeleteContext context }
       end
     end
 
@@ -18,7 +15,6 @@ module Roglew
 
         @version = init_version(min_version)
         new_context = @version.first >= 3 && upgrade_context(@hdc, nil, profile: profile, debug: debug)
-        p self, new_context
         attach_extensions profile
 
       wglMakeCurrent nil, nil
@@ -33,10 +29,6 @@ module Roglew
 
     def get_proc_address(function_name)
       wglGetProcAddress(function_name)
-    end
-
-    private def attach_platform_version_extensions
-      # noop
     end
 
     private def get_extensions_list

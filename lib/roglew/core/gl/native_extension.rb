@@ -1,17 +1,15 @@
 module Roglew
   module GL
     module NativeExtension
+      include EmptyBinding
 
       def attach_function(method, function)
-        bnd = function_binding(function)
+
+        bnd = empty_binding
+        bnd.local_variable_set :function, function
+
         args = method.parameters.map(&:last).join(', ')
         bnd.eval("define_method :#{method.name}, ->(#{args}) { function.call(#{args}) }")
-      end
-
-      private def function_binding(function)
-        binding.tap do |bnd|
-          bnd.local_variable_set :function, function # explicitly use the function argument
-        end
       end
     end
   end

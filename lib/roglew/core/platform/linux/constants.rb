@@ -10,7 +10,7 @@ module Roglew
 
     OS = 'linux'
     FUNCTION_PREFIX = 'glX'
-    LIBRARY_NAME = Roglew.locate_lib('GL').freeze
+    LIBRARY_NAME = locate_lib('GL').freeze
   end
 
   Platform = GLX

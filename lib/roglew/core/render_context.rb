@@ -97,6 +97,10 @@ module Roglew
       extension_names.each { |ext_name| attach_extension ext_name, profile: profile }
     end
 
+    private def attach_platform_version_extensions
+      # noop by default
+    end
+
     private def attach_platform_extensions
       extensions = get_extensions_list
       extensions.each { |name| attach_extension name }
